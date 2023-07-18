@@ -16,47 +16,29 @@
         android:gravity="center_horizontal"
         >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/discoverBtn"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Discover" />
-
-            <Button
-                android:id="@+id/stopScanBtn"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Stop" />
-        </LinearLayout>
-
-
-
         <TextView
             android:id="@+id/statustxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:textSize="15sp"
-            android:text="Status :" />
+            android:text="Paired Devices"
+            android:gravity="center"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select a device to connect to"
+            android:textSize="20sp"
+            android:layout_marginBottom="15sp"
+            />
 
         <ListView
             android:id="@+id/btDevices"
             android:layout_width="match_parent"
-            android:layout_height="198dp"
+            android:layout_height="match_parent"
             android:layout_marginBottom="20dp" />
-
-        <Button
-            android:id="@+id/controlBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="Customize !" />
 
     </LinearLayout>
 

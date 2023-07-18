@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp"
+        android:gravity="center_horizontal"
+        >
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_marginBottom="30dp"
+            android:text="Custom lights" />
+
+        <ImageView
+            android:id="@+id/colorWheel"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:src="@drawable/colorwheel" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/redText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:text="R :" />
+
+            <TextView
+                android:id="@+id/greenText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:text="G :" />
+
+            <TextView
+                android:id="@+id/blueText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:text="B :" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="5sp">
+
+            <TextView
+                android:id="@+id/brightnessTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:text="Brightness :" />
+
+            <SeekBar
+                android:id="@+id/brightSb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="255"
+                android:progress="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="5sp">
+
+            <TextView
+                android:id="@+id/speedTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:text="Speed :" />
+
+            <SeekBar
+                android:id="@+id/speedSb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="255"
+                android:progress="1" />
+        </LinearLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/modeChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:checkedChip="@id/roadChip"
+            android:layout_gravity="center_horizontal"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/roadChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="Road" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/staticChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="Static" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/staticChaseChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="Static Chase" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/staticSparklesChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="Static Sparkles" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/rgbFlowChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="RGBFlow" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/rgbFlowChaseChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="RGBFlow Chase" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/rgbFlowSparklesChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="RGBFlow Sparkles" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <View
+            android:id="@+id/displayColors"
+            android:layout_width="104dp"
+            android:layout_height="45dp" />
+
+        <Button
+            android:id="@+id/applyBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apply" />
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
