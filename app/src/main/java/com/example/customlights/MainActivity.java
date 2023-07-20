@@ -29,10 +29,10 @@ import com.google.android.material.chip.ChipGroup;
 
 import java.util.List;
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity {
 
     ImageView colorWheel;
-    TextView redText, greenText, blueText, brightnessTv, speedTv;
+    TextView redText, greenText, blueText, redValue, greenValue, blueValue, brightnessTv, speedTv;
     View mColorView;
     Button applyBtn;
     Bitmap bitmap;
@@ -55,6 +55,9 @@ public class MainActivity extends Activity{
         redText = findViewById(R.id.redText);
         greenText = findViewById(R.id.greenText);
         blueText = findViewById(R.id.blueText);
+        redValue = findViewById(R.id.redValue);
+        greenValue = findViewById(R.id.greenValue);
+        blueValue = findViewById(R.id.blueValue);
         mColorView = findViewById(R.id.displayColors);
         applyBtn = findViewById(R.id.applyBtn);
         modeChipGroup = findViewById(R.id.modeChipGroup);
@@ -67,21 +70,31 @@ public class MainActivity extends Activity{
         colorWheel.setDrawingCacheEnabled(true);
         colorWheel.buildDrawingCache(true);
 
+        int red = 0;
+        int green = 0;
+        int blue = 0;
+
+        //Connexion to the bluetooth device
+        if (deviceAddress != null) {
+            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
+            connectedBluetoothDevice(device, this, this);
+        }
+
         colorWheel.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN || motionEvent.getAction() == MotionEvent.ACTION_MOVE){
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN || motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
                     bitmap = colorWheel.getDrawingCache();
-                    if (motionEvent.getX() > 0 && motionEvent.getX() < bitmap.getWidth() && motionEvent.getY() > 0 && motionEvent.getY() < bitmap.getHeight()){
-                        int pixel = bitmap.getPixel((int)motionEvent.getX(), (int)motionEvent.getY());
+                    if (motionEvent.getX() > 0 && motionEvent.getX() < bitmap.getWidth() && motionEvent.getY() > 0 && motionEvent.getY() < bitmap.getHeight()) {
+                        int pixel = bitmap.getPixel((int) motionEvent.getX(), (int) motionEvent.getY());
 
-                        int redValue = (pixel >> 16) & 0xff;
-                        int greenValue = (pixel >> 8) & 0xff;
-                        int blueValue = pixel & 0xff;
+                        int red = (pixel >> 16) & 0xff;
+                        int green = (pixel >> 8) & 0xff;
+                        int blue = pixel & 0xff;
 
-                        redText.setText("Red: " + redValue);
-                        greenText.setText("Green: " + greenValue);
-                        blueText.setText("Blue: " + blueValue);
+                        redValue.setText(String.valueOf(red));
+                        greenValue.setText(String.valueOf(green));
+                        blueValue.setText(String.valueOf(blue));
 
                         mColorView.setBackgroundColor(pixel);
                     }
@@ -107,48 +120,45 @@ public class MainActivity extends Activity{
             }
         });
 
-        speedSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        modeChipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                speedTv.setText("Speed : " + seekBar.getProgress());
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
+            public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
+                Chip chip = findViewById(modeChipGroup.getCheckedChipId());
+                if (chip == null) return;
+                Toast.makeText(MainActivity.this, chip.getText(), Toast.LENGTH_SHORT).show();
+                if (chip.getText().toString().equals("RGBFlow")) {
+                    speedSb.setMax(20);
+                } else {
+                    speedSb.setMax(255);
+                }
             }
         });
 
-        //Connexion to the bluetooth device
-        if (deviceAddress != null){
-            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
-            connectedBluetoothDevice(device, this, this);
-        }
+
 
         applyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Chip chip = findViewById(modeChipGroup.getCheckedChipId());
+                if (chip == null) {
+                    Toast.makeText(MainActivity.this, "Please select a mode", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String mode = chip.getText().toString().toLowerCase();
                 int brightness = brightSb.getProgress();
                 int speed = speedSb.getProgress();
-                int red = Integer.parseInt(redText.getText().toString().split(" ")[1]);
-                int green = Integer.parseInt(greenText.getText().toString().split(" ")[1]);
-                int blue = Integer.parseInt(blueText.getText().toString().split(" ")[1]);
+                int red = Integer.parseInt(redValue.getText().toString());
+                int green = Integer.parseInt(greenValue.getText().toString());
+                int blue = Integer.parseInt(blueValue.getText().toString());
 
-                Mode m = new Mode(mode, brightness, speed, red, green, blue);
+                Mode m = new Mode(mode, speed, brightness, red, green, blue);
                 System.out.println(m.toJSON());
                 sendBluetoothData(m.toJSON());
             }
         });
     }
 
-    private void connectedBluetoothDevice(BluetoothDevice device, Context context, Activity activity){
+    private void connectedBluetoothDevice(BluetoothDevice device, Context context, Activity activity) {
         bluetoothThread = new BluetoothThread(device, context, activity);
         bluetoothThread.start();
     }

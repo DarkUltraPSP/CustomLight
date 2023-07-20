@@ -54,7 +54,7 @@ public class BluetoothThread extends Thread {
             // Commencez à gérer la communication Bluetooth ici
         } catch (IOException e) {
             Log.e("BluetoothThread", "Erreur lors de la connexion : " + e.getMessage());
-            // Gérez les erreurs de connexion ici
+            activity.finish();
         }
     }
 

@@ -42,8 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="20sp"
-                android:text="R :" />
+                android:text="Red :"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/greenText"
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
-                android:text="G :" />
+                android:text="Green :" />
 
             <TextView
                 android:id="@+id/blueText"
@@ -59,7 +59,40 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
-                android:text="B :" />
+                android:text="Blue :" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/redValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/greenValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/blueValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:text="0" />
         </LinearLayout>
 
         <LinearLayout
@@ -120,6 +153,13 @@
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:text="Road" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/breathingChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="Breathing" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/staticChip"
